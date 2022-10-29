@@ -1,0 +1,41 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(237, 235, 235);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* transform: scale(2); */
+}
+
+.wrap {
+    /* border: 1px solid #000; */
+    transform: scale(2);
+}
+
+.container {
+    display: flex;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+}
+
+canvas {
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.right {
+    margin-left: 20px;
+}
+
+#overMsg {
+    margin: 0;
+    padding: 0;
+}
+.hide {
+    opacity: 0;
+}
