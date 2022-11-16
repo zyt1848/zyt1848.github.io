@@ -15,7 +15,7 @@
 
 
 
-<title>我的第一篇博客文章 | Hexo博客</title>
+<title>中文测试 | Hexo博客</title>
 
 
 
@@ -241,7 +241,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">我的第一篇博客文章</h1>
+            <h1 class="post-title">中文测试</h1>
             
                 <div class="post-meta">
                     
@@ -250,7 +250,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">八月 12, 2022&nbsp;&nbsp;13:37:14</a>
+                        Date: <a href="#">十一月 16, 2022&nbsp;&nbsp;14:18:16</a>
                         </span>
                     
                     
@@ -259,9 +259,20 @@
         </header>
 
         <div class="post-content">
-            <h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>内容</p>
-<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><p>内容</p>
-<h2 id="参考文献："><a href="#参考文献：" class="headerlink" title="参考文献："></a>参考文献：</h2><p><a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a></p>
+            <h3 id="开启MathJax支持（数学公式）"><a href="#开启MathJax支持（数学公式）" class="headerlink" title="开启MathJax支持（数学公式）"></a>开启MathJax支持（数学公式）</h3><p>相关配置文件内容（<code>Chic/_config.yml</code>）：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># plugin functions</span></span><br><span class="line"><span class="comment">## Mathjax: Math Formula Support</span></span><br><span class="line"><span class="comment">## https://www.mathjax.org</span></span><br><span class="line"><span class="attr">mathjax:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">import:</span> <span class="string">global</span> <span class="comment"># global or demand</span></span><br><span class="line">  <span class="comment">## global: all pages will load mathjax,this will degrade performance and some grammers may be parsed wrong.</span></span><br><span class="line">  <span class="comment">## demand: if your post need fomula, you can declare &#x27;mathjax: true&#x27; in Front-matter</span></span><br></pre></td></tr></table></figure>
+
+<p><code>mathjax</code>有如下字段：</p>
+<ul>
+<li><code>enable</code>:值为true为开启该功能（默认开启）；false为关闭</li>
+<li><code>import</code>:该字段为mathjax的加载方式，可选值为<code>global</code>和<code>demand</code>。<ul>
+<li><code>global</code>：全局引入，所有页面均加载。好处是便利，缺点是可能会导致部分markdown语法被错误解析，比如连续<code>$$</code>会被解析为公式；而且全局引入会在没有公式的页面明显浪费页面性能。</li>
+<li><code>demand</code>【推荐方式】：按需引入。使用方法为在config中设置该字段后，文章中如果需要使用mathjax，在Front-matter中声明即可</li>
+</ul>
+</li>
+</ul>
+<p>LaTeX语法这里不做解释，本主题中，单dollar符号包围的为行内公式，例：<code>$f(x)=ax+b$</code>，双dollar符号包围的为块公式，例<code>$$f(x)=ax+b$$</code>更多写法请参考LaTeX和<a target="_blank" rel="noopener" href="https://siricee.github.io/hexo-theme-Chic/2019/07/05/MathJax_test/">Demo site中的公式测试页面</a>。</p>
+<p>本博客已将<code>mathjax</code>设置为<code>global</code>。</p>
 
         </div>
 
@@ -276,7 +287,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://www.ytcloud.eu.org/2022/08/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">https://www.ytcloud.eu.org/2022/08/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/</a></span>
+                        <span><a href="https://www.ytcloud.eu.org/2022/11/16/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95/">https://www.ytcloud.eu.org/2022/11/16/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95/</a></span>
                     </p>
                 
                 
@@ -300,8 +311,6 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/%E9%9A%8F%E7%AC%94/"># 随笔</a>
-                    
                         <a href="/tags/test/"># test</a>
                     
                         
@@ -315,8 +324,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2022/11/16/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95/">中文测试</a>
             
+            <a class="next" rel="next" href="/2022/08/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">我的第一篇博客文章</a>
             
         </section>
 
