@@ -6,7 +6,7 @@
 			tags: '标签',
 			posts: '文章',
 			about: '关于',
-			links: '友链'
+			link: '友链'
 		};
 		return dict[item.toLowerCase()];
 	}
