@@ -14,7 +14,7 @@
 <meta property="og:description" content="Arch Linux 使用笔记1.Steam游戏使用NVIDIA显卡启动游戏需要在启动参数里加入如下参数： 1__NV_PRIME_RENDER_OFFLOAD&#x3D;0 __GLX_VENDOR_LIBRARY_NAME&#x3D;nvidia %command%  注意0还是1取决于独立显卡是GPU0还是GPO1,以上内容来自arch linux PRIME 相关内容。 2.bluetooth安装bluez">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-02T12:38:57.000Z">
-<meta property="article:modified_time" content="2025-05-02T13:13:05.808Z">
+<meta property="article:modified_time" content="2025-05-03T14:53:21.853Z">
 <meta property="article:author" content="zyt1848">
 <meta name="twitter:card" content="summary">
   
@@ -136,11 +136,35 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> blkid /dev/nvme0n1p1</span><br></pre></td></tr></table></figure>
 
 <p>然后按照fstab文件格式将要挂在的分区写入后重启即可自动挂载。</p>
+<h3 id="5-关于更新arch"><a href="#5-关于更新arch" class="headerlink" title="5.关于更新arch"></a>5.关于更新arch</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S archlinux-keyring archlinuxcn-keyring</span><br><span class="line"><span class="built_in">sudo</span> pacman -Syu</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-openssh"><a href="#6-openssh" class="headerlink" title="6.openssh"></a>6.openssh</h3><p>安装openssh</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S openssh</span><br></pre></td></tr></table></figure>
+
+<p>查看openssh状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status sshd</span><br></pre></td></tr></table></figure>
+
+<p>如果 Open SSH 服务器未运行，终端应显示“inactive”。如果是这种情况，您可以通过输入以下命令来运行 Open SSH：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start sshd</span><br></pre></td></tr></table></figure>
+
+<p>然后，通过再次输入以下内容来确保它是否正在运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status sshd</span><br></pre></td></tr></table></figure>
+
+<p>如果 Open SSH 正在运行，提示符将以绿色显示“active”。如果要终止 SSH 服务器，请输入以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl stop sshd</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-vim剪切板与系统剪切板互通"><a href="#7-vim剪切板与系统剪切板互通" class="headerlink" title="7.vim剪切板与系统剪切板互通"></a>7.vim剪切板与系统剪切板互通</h3><p>查看vim是否支持与系统剪切板互通，可以用这个来检查clipboard那一项是 + 还是 - ：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim --version | grep clipboard</span><br></pre></td></tr></table></figure>
+
+<p>如果结果里出现-clipboard ，可以卸载vim安装gvim</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -R vim</span><br><span class="line"><span class="built_in">sudo</span> pacman -S gvim</span><br></pre></td></tr></table></figure>
+
+<p>安装后再查看vim的剪切板特性，看到 +clipboard，表示支持与系统剪切板互通<br>然后不管你是 <code>set clipboard = unnamed</code> 还是用寄存器 “+p 和 “+y，应该都可以了</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/05/02/arch-notes/" data-id="cma6v6hlb0000bscmdputfn9x" data-title="Arch Linux 使用笔记" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      <a data-url="http://example.com/2025/05/02/arch-notes/" data-id="cmab0qnkn00013icmb3q66faw" data-title="Arch Linux 使用笔记" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
       
       
       
@@ -198,6 +222,10 @@
     <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/05/05/arch-install-kvm/">archlinux安装配置KVM虚拟机</a>
+          </li>
         
           <li>
             <a href="/2025/05/02/links/">links</a>

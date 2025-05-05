@@ -71,6 +71,88 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-arch-install-kvm" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/05/05/arch-install-kvm/" class="article-date">
+  <time class="dt-published" datetime="2025-05-05T11:47:31.000Z" itemprop="datePublished">2025-05-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/05/05/arch-install-kvm/">archlinux安装配置KVM虚拟机</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="archlinux安装配置KVM虚拟机"><a href="#archlinux安装配置KVM虚拟机" class="headerlink" title="archlinux安装配置KVM虚拟机"></a>archlinux安装配置KVM虚拟机</h1><h3 id="一、检查硬件支持"><a href="#一、检查硬件支持" class="headerlink" title="一、检查硬件支持"></a>一、检查硬件支持</h3><ol>
+<li><strong>虚拟化支持检测</strong><br>  执行命令：</li>
+</ol>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grep -E <span class="string">&quot;(vmx|svm)&quot;</span> --color=always /proc/cpuinfo  <span class="comment"># 直接检测CPU虚拟化标志[2](@ref)</span></span><br><span class="line">lsmod | grep kvm                                  <span class="comment"># 验证内核模块是否加载[2](@ref)</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>若 lsmod 无输出，需手动加载模块</li>
+</ol>
+<p>  (二选一)<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> modprobe kvm_intel  <span class="comment"># Intel CPU</span></span><br><span class="line"><span class="built_in">sudo</span> modprobe kvm_amd    <span class="comment"># AMD CPU</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="二、安装必要软件包"><a href="#二、安装必要软件包" class="headerlink" title="二、安装必要软件包"></a>二、安装必要软件包</h3><ul>
+<li><strong>安装核心组件</strong>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S qemu-desktop libvirt virt-manager virt-viewer dmidecode ebtables iptables-nft dnsmasq bridge-utils openbsd-netcat ovmf</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="三、配置服务与用户权限"><a href="#三、配置服务与用户权限" class="headerlink" title="三、配置服务与用户权限"></a>三、配置服务与用户权限</h3><ol>
+<li>配置 libvirt 规则<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/polkit-1/rules.d/50-libvirt.rules</span><br></pre></td></tr></table></figure>
+  内容:</li>
+</ol>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/* 允许 kvm 用户组成员无需认证即可管理 libvirt 守护进程 */</span><br><span class="line">polkit.addRule(function(action, subject) &#123;</span><br><span class="line">  if (action.id == &quot;org.libvirt.unix.manage&quot; &amp;&amp;  </span><br><span class="line">      subject.isInGroup(&quot;kvm&quot;)) &#123;</span><br><span class="line">    return polkit.Result.YES;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p><strong>将用户加入必要用户组</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> usermod -aG libvirt,kvm $(<span class="built_in">whoami</span>)</span><br></pre></td></tr></table></figure>
+<p>完成后需 <code>重新登录(或重启)</code> 或执行 <code>newgrp libvirt</code> 使配置生效</p>
+</li>
+<li><p><strong>配置 Libvirt 权限（可选）</strong><br>编辑 &#x2F;etc&#x2F;libvirt&#x2F;libvirtd.conf ，确保以下配置:</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">unix_sock_group</span> = <span class="string">&quot;libvirt&quot;</span></span><br><span class="line"><span class="attr">unix_sock_rw_perms</span> = <span class="string">&quot;0770&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>启动并启用 libvirtd 和 virtlogd 服务，不要开机自启 dnsmasq 服务，因为 libvirt 在创建和开启虚拟机时自动实例化一个 dnsmasq 进程</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now libvirtd virtlogd</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h3 id="四、创建虚拟机"><a href="#四、创建虚拟机" class="headerlink" title="四、创建虚拟机"></a>四、创建虚拟机</h3><ol>
+<li><strong>使用图形化工具（推荐）</strong><br>启动 <code>virt-manager</code>：  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virt-manager</span><br></pre></td></tr></table></figure>
+• 点击“新建虚拟机”，选择 ISO 镜像或网络安装源。<br>• 配置 CPU、内存、磁盘大小等参数。</li>
+</ol>
+<hr>
+<h3 id="五、管理虚拟机"><a href="#五、管理虚拟机" class="headerlink" title="五、管理虚拟机"></a>五、管理虚拟机</h3><p>• <strong>常用命令</strong>：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">virsh list --all      <span class="comment"># 查看所有虚拟机</span></span><br><span class="line">virsh start arch-vm   <span class="comment"># 启动虚拟机</span></span><br><span class="line">virsh shutdown arch-vm <span class="comment"># 正常关机</span></span><br><span class="line">virsh destroy arch-vm <span class="comment"># 强制关闭</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="六、常见问题"><a href="#六、常见问题" class="headerlink" title="六、常见问题"></a>六、常见问题</h3><ol>
+<li><p><strong>网络桥接配置失败</strong><br>确保 <code>bridge-utils</code> 已安装，并配置 <code>/etc/netctl</code> 或 <code>systemd-networkd</code> 的网络桥接。</p>
+</li>
+<li><p><strong>权限不足错误</strong><br>检查用户是否在 <code>libvirt</code> 和 <code>kvm</code> 组，并重启服务。</p>
+</li>
+</ol>
+<hr>
+<p>通过以上步骤，您可以在 Arch Linux 上顺利安装和管理 KVM 虚拟机。如需更详细的网络配置或性能优化，可参考 Arch Wiki 的 KVM 专题文档。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/05/05/arch-install-kvm/" data-id="cmab0qnkk00003icm1y1y9zvs" data-title="archlinux安装配置KVM虚拟机" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-links" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/05/02/links/" class="article-date">
@@ -94,15 +176,18 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h2 id="一些静态页面"><a href="#一些静态页面" class="headerlink" title="一些静态页面"></a>一些静态页面</h2><ul>
-<li><a target="_blank" rel="noopener" href="//127.0.0.1:4000/static-web/05-sudoku">俄罗斯方块</a></li>
-<li><a target="_blank" rel="noopener" href="//127.0.0.1:4000/static-web/03-%E4%BF%84%E7%BD%97%E6%96%AF%E6%96%B9%E5%9D%97">数读</a></li>
-<li><a target="_blank" rel="noopener" href="//127.0.0.1:4000/static-web/06-%E9%BB%91%E7%99%BD%E6%A3%8B">黑白棋</a></li>
+<li><a target="_blank" rel="noopener" href="//www.ytcloud.eu.org/static-web/05-sudoku">俄罗斯方块</a></li>
+<li><a target="_blank" rel="noopener" href="//www.ytcloud.eu.org/static-web/03-%E4%BF%84%E7%BD%97%E6%96%AF%E6%96%B9%E5%9D%97">数读</a></li>
+<li><a target="_blank" rel="noopener" href="//www.ytcloud.eu.org/static-web/06-%E9%BB%91%E7%99%BD%E6%A3%8B">黑白棋</a></li>
+</ul>
+<h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><ul>
+<li><a target="_blank" rel="noopener" href="//www.ytcloud.eu.org/static-web/some%20note.txt">some note</a></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/05/02/links/" data-id="cma6v6hlh0002bscmaglbhtpa" data-title="links" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      <a data-url="http://example.com/2025/05/02/links/" data-id="cmab0qnkq00033icm3v9dcjpa" data-title="links" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
       
       
       
@@ -177,11 +262,35 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> blkid /dev/nvme0n1p1</span><br></pre></td></tr></table></figure>
 
 <p>然后按照fstab文件格式将要挂在的分区写入后重启即可自动挂载。</p>
+<h3 id="5-关于更新arch"><a href="#5-关于更新arch" class="headerlink" title="5.关于更新arch"></a>5.关于更新arch</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S archlinux-keyring archlinuxcn-keyring</span><br><span class="line"><span class="built_in">sudo</span> pacman -Syu</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-openssh"><a href="#6-openssh" class="headerlink" title="6.openssh"></a>6.openssh</h3><p>安装openssh</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S openssh</span><br></pre></td></tr></table></figure>
+
+<p>查看openssh状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status sshd</span><br></pre></td></tr></table></figure>
+
+<p>如果 Open SSH 服务器未运行，终端应显示“inactive”。如果是这种情况，您可以通过输入以下命令来运行 Open SSH：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start sshd</span><br></pre></td></tr></table></figure>
+
+<p>然后，通过再次输入以下内容来确保它是否正在运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status sshd</span><br></pre></td></tr></table></figure>
+
+<p>如果 Open SSH 正在运行，提示符将以绿色显示“active”。如果要终止 SSH 服务器，请输入以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl stop sshd</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-vim剪切板与系统剪切板互通"><a href="#7-vim剪切板与系统剪切板互通" class="headerlink" title="7.vim剪切板与系统剪切板互通"></a>7.vim剪切板与系统剪切板互通</h3><p>查看vim是否支持与系统剪切板互通，可以用这个来检查clipboard那一项是 + 还是 - ：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim --version | grep clipboard</span><br></pre></td></tr></table></figure>
+
+<p>如果结果里出现-clipboard ，可以卸载vim安装gvim</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -R vim</span><br><span class="line"><span class="built_in">sudo</span> pacman -S gvim</span><br></pre></td></tr></table></figure>
+
+<p>安装后再查看vim的剪切板特性，看到 +clipboard，表示支持与系统剪切板互通<br>然后不管你是 <code>set clipboard = unnamed</code> 还是用寄存器 “+p 和 “+y，应该都可以了</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/05/02/arch-notes/" data-id="cma6v6hlb0000bscmdputfn9x" data-title="Arch Linux 使用笔记" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      <a data-url="http://example.com/2025/05/02/arch-notes/" data-id="cmab0qnkn00013icmb3q66faw" data-title="Arch Linux 使用笔记" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
       
       
       
@@ -232,7 +341,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/05/02/hello-world/" data-id="cma6v6hlg0001bscm4gzzbu8h" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      <a data-url="http://example.com/2025/05/02/hello-world/" data-id="cmab0qnkp00023icmeeqe40dk" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
       
       
       
@@ -273,6 +382,10 @@
     <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/05/05/arch-install-kvm/">archlinux安装配置KVM虚拟机</a>
+          </li>
         
           <li>
             <a href="/2025/05/02/links/">links</a>
