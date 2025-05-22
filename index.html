@@ -75,6 +75,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-hexo-settings" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/05/22/hexo-settings/" class="article-date">
+  <time class="dt-published" datetime="2025-05-22T15:46:49.000Z" itemprop="datePublished">2025-05-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/05/22/hexo-settings/">hexo_settings</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="文章的存放和静态资源的处理"><a href="#文章的存放和静态资源的处理" class="headerlink" title="文章的存放和静态资源的处理"></a>文章的存放和静态资源的处理</h2><h3 id="静态资源的处理"><a href="#静态资源的处理" class="headerlink" title="静态资源的处理"></a>静态资源的处理</h3><p>对于我这种习惯于将文档引用的静态资源存放在一个单独的文件中的人, 则需要使用更组织化的方式来管理资源</p>
+<p>需要在_config.yml启用配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="skip-static-sources-render"><a href="#skip-static-sources-render" class="headerlink" title="skip static sources render"></a>skip static sources render</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">skip_render:</span> <span class="string">/static/*/**</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>‘*’: Any file or directory in parent folder.</li>
+<li>‘**’: All the file and directory in parent folder and its child folder.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```</span><br></pre></td></tr></table></figure>
+<pre><code>
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/05/22/hexo-settings/" data-id="cmazk3kwe0003c8cm95c92u3i" data-title="hexo_settings" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-arch-install-kvm" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/05/05/arch-install-kvm/" class="article-date">
@@ -145,7 +196,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/05/05/arch-install-kvm/" data-id="cmazhfdya00007tcm0s3j4tc0" data-title="archlinux安装配置KVM虚拟机" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      <a data-url="http://example.com/2025/05/05/arch-install-kvm/" data-id="cmazk3kw30000c8cm2184gdak" data-title="archlinux安装配置KVM虚拟机" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
       
       
       
@@ -191,7 +242,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/05/02/links/" data-id="cmazhfdyl00027tcm3nwbcizi" data-title="links" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      <a data-url="http://example.com/2025/05/02/links/" data-id="cmazk3kwe0002c8cmhjhqgge1" data-title="links" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
       
       
       
@@ -242,7 +293,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/05/02/hello-world/" data-id="cmazhfdyk00017tcmhw9oan01" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      <a data-url="http://example.com/2025/05/02/hello-world/" data-id="cmazk3kw70001c8cm12wrdbh2" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
       
       
       
@@ -283,6 +334,10 @@
     <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/05/22/hexo-settings/">hexo_settings</a>
+          </li>
         
           <li>
             <a href="/2025/05/05/arch-install-kvm/">archlinux安装配置KVM虚拟机</a>
