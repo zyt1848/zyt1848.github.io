@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>俄罗斯方块</title>
+    <link rel="stylesheet" href="/static/03-tetris/style.css">
+</head>
+<body>
+    <div class="wrap">
+        <div class="container">
+            <section class="left">
+                <canvas id="game" width="120" height="240"></canvas>
+                <div class="score">
+                    得分：<span id="score">0</span>
+                </div>
+            </section>
+            <section class="right">
+                <h3>接下来是：</h3>
+                <canvas id="preView" width="40" height="40"></canvas>
+            </section>
+        </div>
+        <div id="overMsg" class="hide">游戏结束，按空格或回车键重新开始游戏</div>
+    </div>
+
+    <script src="/static/03-tetris/script.js"></script>
+</body>
+</html>

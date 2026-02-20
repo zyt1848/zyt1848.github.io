@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Arch Linux 使用笔记 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Arch Linux 使用笔记1.Steam游戏使用NVIDIA显卡启动游戏需要在启动参数里加入如下参数： 1__NV_PRIME_RENDER_OFFLOAD&#x3D;0 __GLX_VENDOR_LIBRARY_NAME&#x3D;nvidia %command%  注意0还是1取决于独立显卡是GPU0还是GPO1,以上内容来自arch linux PRIME 相关内容。 2.bluetooth安装bluez">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Arch Linux 使用笔记">
+<meta property="og:url" content="http://example.com/2025/05/02/arch-notes/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Arch Linux 使用笔记1.Steam游戏使用NVIDIA显卡启动游戏需要在启动参数里加入如下参数： 1__NV_PRIME_RENDER_OFFLOAD&#x3D;0 __GLX_VENDOR_LIBRARY_NAME&#x3D;nvidia %command%  注意0还是1取决于独立显卡是GPU0还是GPO1,以上内容来自arch linux PRIME 相关内容。 2.bluetooth安装bluez">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-05-02T12:38:57.000Z">
+<meta property="article:modified_time" content="2026-02-20T13:29:40.585Z">
+<meta property="article:author" content="zyt1848">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Recoding something I wanted</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-arch-notes" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/05/02/arch-notes/" class="article-date">
+  <time class="dt-published" datetime="2025-05-02T12:38:57.000Z" itemprop="datePublished">2025-05-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Arch Linux 使用笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="Arch-Linux-使用笔记"><a href="#Arch-Linux-使用笔记" class="headerlink" title="Arch Linux 使用笔记"></a>Arch Linux 使用笔记</h2><h3 id="1-Steam游戏使用NVIDIA显卡启动游戏"><a href="#1-Steam游戏使用NVIDIA显卡启动游戏" class="headerlink" title="1.Steam游戏使用NVIDIA显卡启动游戏"></a>1.Steam游戏使用NVIDIA显卡启动游戏</h3><p>需要在启动参数里加入如下参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__NV_PRIME_RENDER_OFFLOAD=0 __GLX_VENDOR_LIBRARY_NAME=nvidia %command%</span><br></pre></td></tr></table></figure>
+
+<p>注意0还是1取决于独立显卡是GPU0还是GPO1,以上内容来自arch linux PRIME 相关内容。</p>
+<h3 id="2-bluetooth"><a href="#2-bluetooth" class="headerlink" title="2.bluetooth"></a>2.bluetooth</h3><p>安装bluez bluez-utils,提供bluetoothctl功能</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S bluez bluez-utils</span><br></pre></td></tr></table></figure>
+
+<p>启用btusb</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modprobe btusb</span><br></pre></td></tr></table></figure>
+
+<p>启用bluetooth并启动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> bluetooth</span><br><span class="line"><span class="built_in">sudo</span> systemctl start bluetooth</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-os-prober"><a href="#3-os-prober" class="headerlink" title="3.os-prober"></a>3.os-prober</h3><p>注意第一步编辑&#x2F;etc&#x2F;default&#x2F;grub 文件,启用探测其他操作系统</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRUB_DISABLE_OS_PROBER=false</span><br></pre></td></tr></table></figure>
+
+<p>使用os-prober探测windows启动项</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> os-prober</span><br></pre></td></tr></table></figure>
+
+<p>生成grub配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-fstab"><a href="#4-fstab" class="headerlink" title="4.fstab"></a>4.fstab</h3><p>在arch linux直接使用genfstab需要安装arch-install-scripts</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S arch-install-scirpts</span><br></pre></td></tr></table></figure>
+
+<p>生成fstab文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> genfstab /</span><br></pre></td></tr></table></figure>
+
+<p>当然也可以直接修改&#x2F;etc&#x2F;fstab文件，我也推荐这么做<br>以下是fstab文件例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># UUID=4265f350-0ffa-4474-8bf8-b0dc9812ead9</span><br><span class="line">/dev/nvme0n1p8          /               ext4            rw,relatime     0 1</span><br><span class="line"></span><br><span class="line"># UUID=2C7D-1124</span><br><span class="line">/dev/nvme0n1p6          /boot           vfat            rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro 0 2</span><br><span class="line"></span><br><span class="line"># UUID=A62E-F384 LABEL=SYSTEM</span><br><span class="line">/dev/nvme0n1p1          /boot2          vfat            rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro 0 2</span><br><span class="line"></span><br><span class="line"># UUID=80d6aa7e-5b55-4c61-ac91-87df704f79a0</span><br><span class="line">/dev/nvme0n1p7          none            swap            defaults        0 0</span><br><span class="line"></span><br><span class="line"># UUID=10A70B5E10A70B5E</span><br><span class="line">/dev/nvme0n1p3		/mnt/c_driver	ntfs-3g		defaults	0 0</span><br><span class="line"></span><br><span class="line"># UUID=D850FD3A50FD2044</span><br><span class="line">/dev/sda2		/mnt/HDD	ntfs-3g		defaults	0 0</span><br><span class="line"></span><br><span class="line"># UUID=186a2a5a-ee28-a640-9a39-78467b6f2f49</span><br><span class="line">/dev/sda3		/mnt/HDD2	ext4		defaults	0 0</span><br></pre></td></tr></table></figure>
+
+<p>注意：要挂在NTFS文件系统的磁盘需要安装ntfs-3g</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S ntfs-3g</span><br></pre></td></tr></table></figure>
+
+<p>然后编写&#x2F;etc&#x2F;fstab文件，每个挂载磁盘前面加上UUID,查询UUID的方法：<br>可以先使用lsblk查看所有的磁盘分区及挂在情况</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsblk</span><br></pre></td></tr></table></figure>
+
+<p>再查询指定分区UUID</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> blkid /dev/nvme0n1p1</span><br></pre></td></tr></table></figure>
+
+<p>然后按照fstab文件格式将要挂在的分区写入后重启即可自动挂载。</p>
+<h3 id="5-关于更新arch"><a href="#5-关于更新arch" class="headerlink" title="5.关于更新arch"></a>5.关于更新arch</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S archlinux-keyring archlinuxcn-keyring</span><br><span class="line"><span class="built_in">sudo</span> pacman -Syu</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-openssh"><a href="#6-openssh" class="headerlink" title="6.openssh"></a>6.openssh</h3><p>安装openssh</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S openssh</span><br></pre></td></tr></table></figure>
+
+<p>查看openssh状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status sshd</span><br></pre></td></tr></table></figure>
+
+<p>如果 Open SSH 服务器未运行，终端应显示“inactive”。如果是这种情况，您可以通过输入以下命令来运行 Open SSH：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start sshd</span><br></pre></td></tr></table></figure>
+
+<p>然后，通过再次输入以下内容来确保它是否正在运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status sshd</span><br></pre></td></tr></table></figure>
+
+<p>如果 Open SSH 正在运行，提示符将以绿色显示“active”。如果要终止 SSH 服务器，请输入以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl stop sshd</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-vim剪切板与系统剪切板互通"><a href="#7-vim剪切板与系统剪切板互通" class="headerlink" title="7.vim剪切板与系统剪切板互通"></a>7.vim剪切板与系统剪切板互通</h3><p>查看vim是否支持与系统剪切板互通，可以用这个来检查clipboard那一项是 + 还是 - ：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim --version | grep clipboard</span><br></pre></td></tr></table></figure>
+
+<p>如果结果里出现-clipboard ，可以卸载vim安装gvim</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -R vim</span><br><span class="line"><span class="built_in">sudo</span> pacman -S gvim</span><br></pre></td></tr></table></figure>
+
+<p>安装后再查看vim的剪切板特性，看到 +clipboard，表示支持与系统剪切板互通<br>然后不管你是 <code>set clipboard = unnamed</code> 还是用寄存器 “+p 和 “+y，应该都可以了</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/05/02/arch-notes/" data-id="cuidzng0pqKIakQEVkW5mtjEy" data-title="Arch Linux 使用笔记" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/05/02/links/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          links
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">二月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/02/18/beiqi-mission/">北气任务回复</a>
+          </li>
+        
+          <li>
+            <a href="/2025/05/28/cmake-note/">cmake_note</a>
+          </li>
+        
+          <li>
+            <a href="/2025/05/22/hexo-settings/">hexo_settings</a>
+          </li>
+        
+          <li>
+            <a href="/2025/05/05/arch-install-kvm/">archlinux安装配置KVM虚拟机</a>
+          </li>
+        
+          <li>
+            <a href="/2025/05/02/links/">links</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 zyt1848<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

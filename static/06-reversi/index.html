@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黑白棋</title>
+    <link rel="stylesheet" href="/static/06-reversi/style.css">
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <h2>黑白棋</h2>
+            <div class="player-info">
+                <div>白子: <span id="player1">2</span></div>
+                <div>黑子: <span id="player2">2</span></div>
+            </div>
+            <div class="who-next">
+                <p><span id="chesscolor"></span>棋回合</p>
+                <div class="chess"></div>
+            </div>
+        </header>
+        <div class="container">
+            <ul class="chess-number-left">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+            </ul>
+            <ul class="chess-alpha-top">
+                <li>A</li>
+                <li>B</li>
+                <li>C</li>
+                <li>D</li>
+                <li>E</li>
+                <li>F</li>
+                <li>G</li>
+                <li>H</li>
+            </ul>
+            <div class="chessboard">
+                <!-- <div class="cell">
+                    <div class="chess chess-white"></div>
+                </div> -->
+            </div>
+            
+        </div>
+        <footer>
+            <button class="reset-btn">重置</button>
+            <button class="change-player">切换先手</button>
+            <button class="show-hint-btn">显示提示</button>
+        </footer>
+        <p class="addition-info">还有BUG</p>
+    </div> <!-- div.wrap -->
+
+    <script src="/static/06-reversi/script.js"></script>
+    <script src="/static/06-reversi/ai.js"></script>
+</body>
+</html>

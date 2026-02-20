@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku</title>
+    <link rel="stylesheet" href="/static/05-sudoku/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="numbers">
+            <!-- <div class="grid">
+                <div class="cell">1</div>
+                <div class="cell">2</div>
+                <div class="cell">3</div>
+                <div class="cell">4</div>
+                <div class="cell">5</div>
+                <div class="cell">6</div>
+                <div class="cell">7</div>
+                <div class="cell">8</div>
+                <div class="cell">9</div>
+            </div>
+            <div class="grid">2</div>
+            <div class="grid">3</div>
+            <div class="grid">4</div>
+            <div class="grid">5</div>
+            <div class="grid">6</div>
+            <div class="grid">7</div>
+            <div class="grid">8</div>
+            <div class="grid">9</div> -->
+        </div>
+        <div class="buttons">
+            <button id="load-default-data-btn">载入演示数据</button>
+            <button id="clear-cell-btn">清空</button>
+            <button id="get-data-btn">获取当前数据</button>
+            <button id="save-data-btn">保存数据</button>
+            <button id="solve-btn">解题并显示</button>
+        </div>
+        <div class="buttons">
+            <input type="file" name="file" id="file" />
+            <button id="loadfile-btn">载入文件数据</button>
+        </div>
+
+        <div class="number-input">
+            <div class="num-1">1</div>
+            <div class="num-2">2</div>
+            <div class="num-3">3</div>
+            <div class="num-4">4</div>
+            <div class="num-5">5</div>
+            <div class="num-6">6</div>
+            <div class="num-7">7</div>
+            <div class="num-8">8</div>
+            <div class="num-9">9</div>
+            <div class="num-0">0</div>
+        </div>
+    </div>
+
+    <script src="/static/05-sudoku/script.js"></script>
+    <script src="/static/05-sudoku/control.js"></script>
+    <script src="/static/05-sudoku/fileio.js"></script>
+</body>
+</html>
